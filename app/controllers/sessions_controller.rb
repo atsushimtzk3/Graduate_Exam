@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   
-  skip_before_action :logged_in?
+  #skip_before_action :logged_in?
   
   def new
   end

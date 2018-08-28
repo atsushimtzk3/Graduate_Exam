@@ -26,7 +26,7 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
   
-  config.action_mailer.default_url_options = { host: 'graduate-exam3-atsushi2018.c9users.io:8080/' }
+  config.action_mailer.default_url_options = { host: 'arcane-retreat-57119.herokuapp.com:8080/' }
   config.action_mailer.delivery_method = :letter_opener
 
   # Don't care if the mailer can't send.

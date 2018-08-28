@@ -1,0 +1,54 @@
+<%= form_with(model: blog, local: true, url: choose_new_or_edit ) do |form| %>
+  <% if blog.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= @blog.errors.count %>件のエラーがあります。</h2>
+
+      <ul>
+      <% blog.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title, id: :blog_title %>
+  </div>
+  
+  <div class="field">
+    <%= form.label :base %>
+    <%= base = current_user.base %>
+  </div>  
+  
+  <div class="field">
+    <%= form.label :content %>
+    <%= form.text_area :content, id: :blog_content %>
+  </div>
+  
+  <div class="field">
+    <%= form.label :recruitment_number %>
+    <%= form.number_field :recruitment_number, id: :blog_recruitment_number %>
+  </div>  
+
+  <div class="field">
+    <%= form.label :starting_time %>
+    <%= form.datetime_select :starting_time, id: :blog_starting_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :finishing_time %>
+    <%= form.datetime_select :finishing_time, id: :blog_finishing_time %>
+  </div>
+ 
+  <div class="field">
+    <%= form.label :Recruiter %>
+    <%= name = current_user.name %>
+  </div>
+
+  <%= form.hidden_field :user_id, value: current_user.id %>
+  
+  <div class="actions">
+    <%= form.submit "　登録　", class: "btn btn-primary" %>
+  </div>
+<% end %>

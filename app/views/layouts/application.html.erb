@@ -3,12 +3,67 @@
   <head>
     <title>Graduate</title>
     <%= csrf_meta_tags %>
+    
+    <meta name="viewport" content="width=device-width">
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+    
+    <header>
+      <ul>
+        <% if applicant_signed_in? %>
+          <li id="new-blog-link">
+          <%= link_to "マイページ", applicant_path(current_applicant.id) %>
+          <li id="new-blog-link">
+          <%= link_to "ログアウト", destroy_applicant_session_path, method: :delete %> 
+          </li>
+          
+        <% elsif user_signed_in? %>
+          <li id="new-blog-link">
+          <%= link_to "マイページ", user_path(current_user.id) %>
+          </li> 
+          <li id="new-blog-link">
+          <%= link_to '募集一覧', blogs_path %>
+          </li>
+          <li id="new-blog-link">
+          <%= link_to '新規募集', new_blog_path %>
+          </li>
+          <li id="new-blog-link">
+          <%= link_to "ログアウト", destroy_user_session_path, method: :delete %> 
+          </li>
+          
+        <% else %>
+          <li id="new-blog-link">
+          <%= link_to "担当者登録", new_user_registration_path %>
+          </li>
+          <li id="new-blog-link">
+          <%= link_to "担当者ログイン", new_user_session_path %>
+          </li>
+          <li id="new-blog-link">
+          <%= link_to "応募者登録", new_applicant_registration_path %>
+          </li>
+          <li id="new-blog-link">
+          <%= link_to "応募者ログイン", new_applicant_session_path %>
+          </li>
+          
+        <% end %>          
+      </ul>
+    </header>
+
+    
+    <% flash.each do |key, value| %>
+      <%= content_tag(:div, value, class: "#{key}") %>
+    <% end %>    
+  
     <%= yield %>
+    
+    <footer>
+      <p>エヌ・ティ・ティ・コム チェオ株式会社</p>
+      <p>Copyright © 2018 NTT Com CHEO All Rights Reserved.</p>
+    </footer>
+    
   </body>
 </html>

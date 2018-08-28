@@ -1,0 +1,9 @@
+  <h2>ユーザー一覧(<%= @favorites.length %>人)</h2>
+
+    <% @favorites.each do |favorite| %>
+      <% @applicant_id = favorite.applicant_id %>
+      <% applicant = applicant.find(@applicant_id) %>
+      <div>
+        <%= link_to applicant.emaii ,applicant_path(applicant) %><br/>
+      </div>
+    <% end %>

@@ -1,0 +1,28 @@
+<h3>以下の内容で、登録する。</h3>
+
+<%= form_with(model: @blog, url: blogs_path, local: true) do |form| %>
+  <%= form.hidden_field :title %>
+  <%= form.hidden_field :content %>
+  <%= form.hidden_field :starting_time %>
+  <%= form.hidden_field :finishing_time%>
+  <%= form.hidden_field :recruitment_number %>
+  
+  <p>件名:<%= @blog.title %></p>
+  <p>業務内容:<%= @blog.content %></p>
+  <p>開始日時:<%= @blog.starting_time.to_s(:starting_time)   %></p>
+  <p>終了日時:<%= @blog.finishing_time.to_s(:finishing_time)  %></p>
+  <p>募集人数:<%= @blog.recruitment_number %></p>
+
+  <%= form.hidden_field :user_id, value: current_user.id %>
+  <%= form.submit  "登録する" %>
+<% end %>
+
+<%= form_with(model: @blog, url: new_blog_path, local: true, method: 'get') do |form| %>
+  <%= form.hidden_field :title %>
+  <%= form.hidden_field :content %>
+  <%= form.hidden_field :starting_time %>
+  <%= form.hidden_field :finishing_time%>
+  <%= form.hidden_field :recruitment_number, id: :blog_recruitment_number  %>
+  
+  <%= form.submit "もどる", name: 'back' %>
+<% end %>

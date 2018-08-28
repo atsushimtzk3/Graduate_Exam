@@ -1,7 +1,7 @@
-<%= form_with(model: blog, local: true) do |form| %>
+<%= form_with(model: blog, local: true, url: choose_new_or_edit ) do |form| %>
   <% if blog.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(blog.errors.count, "error") %> prohibited this blog from being saved:</h2>
+      <h2><%= @blog.errors.count %>件のエラーがあります。</h2>
 
       <ul>
       <% blog.errors.full_messages.each do |message| %>
@@ -12,46 +12,43 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :title %>
+    <%= form.label :件名 %>
     <%= form.text_field :title, id: :blog_title %>
   </div>
-
+  
   <div class="field">
-    <%= form.label :content %>
+    <%= form.label :拠点%>
+    <%= base = current_user.base %>
+  </div>  
+  
+  <div class="field">
+    <%= form.label :業務内容 %>
     <%= form.text_area :content, id: :blog_content %>
   </div>
+  
+  <div class="field">
+    <%= form.label :募集人数 %>
+    <%= form.text_field :recruitment_number, id: :blog_recruitment_number %>
+  </div>  
 
   <div class="field">
-    <%= form.label :starting_time %>
-    <%= form.datetime_select :starting_time, id: :blog_starting_time %>
+    <%= form.label :開始日時 %>
+    <%= form.datetime_field :starting_time, id: :blog_starting_time %>
   </div>
 
   <div class="field">
-    <%= form.label :finishing_time %>
-    <%= form.datetime_select :finishing_time, id: :blog_finishing_time %>
+    <%= form.label :終了日時 %>
+    <%= form.datetime_field :finishing_time, id: :blog_finishing_time %>
   </div>
-
+ 
   <div class="field">
-    <%= form.label :recruitment_number %>
-    <%= form.number_field :recruitment_number, id: :blog_recruitment_number %>
+    <%= form.label :担当者 %>
+    <%= name = current_user.name %>
   </div>
 
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.number_field :user_id, id: :blog_user_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :applicant_id %>
-    <%= form.number_field :applicant_id, id: :blog_applicant_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :applicant_number %>
-    <%= form.number_field :applicant_number, id: :blog_applicant_number %>
-  </div>
-
+  <%= form.hidden_field :user_id, value: current_user.id %>
+  
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "　登録　", class: "btn btn-primary" %>
   </div>
 <% end %>

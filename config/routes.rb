@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
 
-  root to: 'blogs#index'  
+  root to: 'blogs#top'
+  
+  resources :blogs do
+    collection do
+      post :confirm
+      get :recruit
+    end
+  end  
 
   devise_for :applicants, controllers: {
   sessions:      'applicants/sessions',
@@ -13,6 +20,12 @@ Rails.application.routes.draw do
   registrations: 'users/registrations'
   }
   
-  resources :blogs
+  resources :users, only: [:index, :show]
+  resources :applicants, only: [:index, :show]
+  resources :favorites, only: [:create, :destroy]
+  
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+  
+  
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

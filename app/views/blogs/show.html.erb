@@ -1,44 +1,59 @@
-<p id="notice"><%= notice %></p>
+<p id="notice"></p>
 
 <p>
-  <strong>Title:</strong>
+  <strong>件名:</strong>
   <%= @blog.title %>
 </p>
 
 <p>
-  <strong>Content:</strong>
+  <strong>件名:</strong>
+  <%= @blog.user_base %>
+</p>
+
+<p>
+  <strong>業務内容:</strong>
   <%= @blog.content %>
 </p>
 
 <p>
-  <strong>Starting time:</strong>
-  <%= @blog.starting_time %>
-</p>
-
-<p>
-  <strong>Finishing time:</strong>
-  <%= @blog.finishing_time %>
-</p>
-
-<p>
-  <strong>Recruitment number:</strong>
+  <strong>募集人数:</strong>
   <%= @blog.recruitment_number %>
 </p>
 
 <p>
-  <strong>User:</strong>
-  <%= @blog.user_id %>
-</p>
-
-<p>
-  <strong>Applicant:</strong>
-  <%= @blog.applicant_id %>
-</p>
-
-<p>
-  <strong>Applicant number:</strong>
+  <strong>応募者数:</strong>
   <%= @blog.applicant_number %>
 </p>
 
-<%= link_to 'Edit', edit_blog_path(@blog) %> |
-<%= link_to 'Back', blogs_path %>
+<p>
+  <strong>開始日時:</strong>
+  <%= @blog.starting_time.to_s(:starting_time)   %>
+</p>
+
+<p>
+  <strong>終了日時:</srong>
+  <%= @blog.finishing_time.to_s(:finishing_time)  %>
+</p>
+
+<p>
+  <strong>担当者:</strong>
+  <%= @blog.user_name %>
+</p>
+
+<% if applicant_signed_in? %>
+  <% if @favorite.present? %>
+    <%= link_to '登録解除する', favorite_path(id: @favorite.id), method: :delete, class: 'btn btn-danger' %>
+  <% else %>
+    <%= link_to '登録する', favorites_path(blog_id: @blog.id), method: :post, class: 'btn btn-primary' %>
+  <% end %>  
+<% end %>
+
+<% if user_signed_in?  %>
+  <%= link_to '戻る', blogs_path %>
+<% else %>
+  <%= link_to '戻る', :back %>  
+<% end %>
+
+
+
+
